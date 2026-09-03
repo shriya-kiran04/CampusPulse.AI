@@ -10,7 +10,7 @@ Currently under development.
 
 - [x] Step 1 — Next.js project scaffolding
 - [x] Step 2 — Database schema
-- [ ] Step 3 — Seed/sample data
+- [x] Step 3 — Seed/sample data
 - [ ] Step 4 — Notice processing
 - [ ] Step 5 — AI integration
 - [ ] Step 6 — Campus dashboard
