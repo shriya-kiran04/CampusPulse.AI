@@ -9,7 +9,7 @@ Currently under development.
 ## Progress
 
 - [x] Step 1 — Next.js project scaffolding
-- [ ] Step 2 — Database schema
+- [x] Step 2 — Database schema
 - [ ] Step 3 — Seed/sample data
 - [ ] Step 4 — Notice processing
 - [ ] Step 5 — AI integration
