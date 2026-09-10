@@ -50,6 +50,9 @@ export default function Dashboard() {
                   ✅ Action: {n.action_text}
                 </p>
               )}
+              <a href={`/notice/${n.id}`} className="inline-block mt-3 text-sm font-medium text-blue-600 underline">
+                View Details →
+              </a>
             </div>
           );
         })}
