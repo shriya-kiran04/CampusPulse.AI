@@ -31,9 +31,15 @@ export default function Dashboard() {
   return (
     <main className="min-h-screen bg-gray-50 p-8">
       <h1 className="text-2xl font-bold">Good day, {student.name} 👋</h1>
-      <p className="text-gray-500 mb-6">
+      <p className="text-gray-500 mb-3">
         {student.program} {student.branch} • Year {student.year} • Division {student.division}
       </p>
+      <a
+        href="/ask"
+        className="inline-block mb-6 bg-black text-white text-sm font-medium px-4 py-2 rounded-lg"
+      >
+        💬 Ask CampusPulse
+      </a>
 
       <div className="space-y-4 max-w-2xl">
         {notices.map((n) => {

@@ -11,7 +11,14 @@ export async function POST(request) {
   }
 
   const notices = getNoticesForStudent(student);
-  const answer = await askAboutNotices(question, notices);
 
-  return NextResponse.json({ answer });
+  try {
+    const answer = await askAboutNotices(question, notices);
+    return NextResponse.json({ answer });
+  } catch (err) {
+    console.error('Gemini error:', err.status, err.message);
+    return NextResponse.json({
+      answer: 'The AI is busy right now. Please try again in a few seconds.',
+    });
+  }
 }
