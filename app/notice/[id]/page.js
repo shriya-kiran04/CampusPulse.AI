@@ -6,11 +6,22 @@ import { useParams } from 'next/navigation';
 export default function NoticeDetail() {
   const { id } = useParams();
   const [data, setData] = useState(null);
+  const [explanation, setExplanation] = useState(null);
+  const [explaining, setExplaining] = useState(false);
 
   useEffect(() => {
     fetch(`/api/notice/${id}`)
       .then((res) => res.json())
-      .then(setData);
+      .then((d) => {
+        setData(d);
+        if (d.history && d.history.length > 0) {
+          setExplaining(true);
+          fetch(`/api/explain/${id}`)
+            .then((res) => res.json())
+            .then((e) => setExplanation(e.explanation))
+            .finally(() => setExplaining(false));
+        }
+      });
   }, [id]);
 
   if (!data) return <main className="p-8">Loading...</main>;
@@ -30,13 +41,26 @@ export default function NoticeDetail() {
       )}
 
       {hasChanged && (
-        <div className="mt-6 bg-white border-l-4 border-red-400 p-4 rounded-lg shadow-sm max-w-xl">
-          <h2 className="font-bold mb-2">🔴 What Changed</h2>
-          <p className="text-sm text-gray-500 mb-2">Original description:</p>
-          <p className="text-sm text-gray-700 italic mb-3">{original.description}</p>
-          <p className="text-sm text-gray-500 mb-2">Updated description:</p>
-          <p className="text-sm text-gray-900 font-medium">{notice.description}</p>
-        </div>
+        <>
+          <div className="mt-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg shadow-sm max-w-xl">
+            <h2 className="font-bold mb-2">✨ AI Summary</h2>
+            {explaining && <p className="text-sm text-gray-500">Explaining what changed...</p>}
+            {!explaining && explanation && (
+              <p className="text-sm text-gray-900">{explanation}</p>
+            )}
+            {!explaining && !explanation && (
+              <p className="text-sm text-gray-500">AI summary unavailable right now.</p>
+            )}
+          </div>
+
+          <div className="mt-4 bg-white border-l-4 border-red-400 p-4 rounded-lg shadow-sm max-w-xl">
+            <h2 className="font-bold mb-2">🔴 What Changed</h2>
+            <p className="text-sm text-gray-500 mb-2">Original description:</p>
+            <p className="text-sm text-gray-700 italic mb-3">{original.description}</p>
+            <p className="text-sm text-gray-500 mb-2">Updated description:</p>
+            <p className="text-sm text-gray-900 font-medium">{notice.description}</p>
+          </div>
+        </>
       )}
 
       {!hasChanged && (
